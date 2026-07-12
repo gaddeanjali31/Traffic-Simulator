@@ -1,27 +1,25 @@
-import "./Sidebar.css";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
+
     return (
+
         <div className="sidebar">
 
-            <h2>🚦 Traffic</h2>
+            <NavLink to="/">🏠 Home</NavLink>
 
-            <ul>
+            <NavLink to="/dashboard">📊 Dashboard</NavLink>
 
-                <li>🏠 Home</li>
+            <NavLink to="/map">🗺 Map</NavLink>
 
-                <li>📊 Dashboard</li>
+            <NavLink to="/analytics">📈 Analytics</NavLink>
 
-                <li>🗺️ Map</li>
-
-                <li>📈 Analytics</li>
-
-                <li>⚙ Settings</li>
-
-            </ul>
+            <NavLink to="/settings">⚙ Settings</NavLink>
 
         </div>
+
     );
+
 }
 
 export default Sidebar;

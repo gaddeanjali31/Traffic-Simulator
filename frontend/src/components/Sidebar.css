@@ -2,36 +2,32 @@
 
     width:220px;
 
-    height:100vh;
+    background:#1E293B;
 
-    background:#263238;
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.sidebar a{
 
     color:white;
 
-    padding:20px;
-
-}
-
-.sidebar ul{
-
-    list-style:none;
-
-    padding:0;
-
-}
-
-.sidebar li{
+    text-decoration:none;
 
     padding:15px;
 
-    cursor:pointer;
+}
+
+.sidebar a:hover{
+
+    background:#334155;
 
 }
 
-.sidebar li:hover{
+.sidebar a.active{
 
-    background:#455A64;
-
-    border-radius:5px;
+    background:#2563EB;
 
 }
