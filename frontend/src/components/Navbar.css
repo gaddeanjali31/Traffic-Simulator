@@ -1,4 +1,14 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 .navbar{
+
+    background:#1565C0;
+
+    color:white;
 
     display:flex;
 
@@ -6,32 +16,52 @@
 
     align-items:center;
 
-    background:#1565c0;
-
-    color:white;
-
-    padding:15px 30px;
+    padding:18px 40px;
 
 }
 
-.menu{
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+}
+
+.nav-links{
 
     display:flex;
 
-    list-style:none;
-
-    gap:25px;
+    gap:35px;
 
 }
 
-.menu li{
+.nav-links a{
 
-    cursor:pointer;
+    color:white;
+
+    text-decoration:none;
+
+    font-size:18px;
+
+    padding:8px 15px;
+
+    border-radius:6px;
+
+    transition:.3s;
 
 }
 
-.menu li:hover{
+.nav-links a:hover{
 
-    color:yellow;
+    background:#0D47A1;
+
+}
+
+.nav-links a.active{
+
+    background:white;
+
+    color:#1565C0;
 
 }
