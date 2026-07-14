@@ -3,23 +3,30 @@ import "./Map.css";
 
 function Map() {
 
+    const [junctionName, setJunctionName] = useState("");
     const [junctions, setJunctions] = useState([]);
 
     function addJunction() {
 
+        if (junctionName.trim() === "") {
+            alert("Please enter a junction name.");
+            return;
+        }
+
         const newJunction = {
             id: Date.now(),
-            name: "Junction " + (junctions.length + 1),
+            name: junctionName,
             status: "Active"
         };
 
         setJunctions([...junctions, newJunction]);
+        setJunctionName("");
     }
 
     function deleteJunction(id) {
 
         setJunctions(
-            junctions.filter((junction) => junction.id !== id)
+            junctions.filter(j => j.id !== id)
         );
 
     }
@@ -34,11 +41,19 @@ function Map() {
                 Build and manage your city's road network.
             </p>
 
+            <input
+                type="text"
+                placeholder="Enter Junction Name"
+                value={junctionName}
+                onChange={(e) => setJunctionName(e.target.value)}
+                className="input-box"
+            />
+
             <button
                 className="add-btn"
                 onClick={addJunction}
             >
-                + Add New Junction
+                Add Junction
             </button>
 
             <div className="junction-list">
@@ -54,13 +69,9 @@ function Map() {
 
                             <h3>📍 {junction.name}</h3>
 
-                            <p>
-                                <strong>ID:</strong> {junction.id}
-                            </p>
+                            <p><strong>ID:</strong> {junction.id}</p>
 
-                            <p>
-                                <strong>Status:</strong> {junction.status}
-                            </p>
+                            <p><strong>Status:</strong> {junction.status}</p>
 
                             <button
                                 className="delete-btn"
