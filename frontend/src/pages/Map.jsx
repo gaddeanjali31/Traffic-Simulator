@@ -22,8 +22,9 @@ function Map() {
     id: Date.now(),
     name: junctionName,
     status: "Active",
-    signal: "🔴 Red",
-    traffic: "🟢 Low"
+    signal: "Red",
+    vehicles: 0,
+    traffic: "Low"
 };
 
         setJunctions([...junctions, newJunction]);
@@ -55,6 +56,37 @@ function Map() {
                 return {
                     ...junction,
                     signal: nextSignal
+                };
+            }
+
+            return junction;
+
+        })
+
+    );
+
+}
+function addTraffic(id) {
+
+    setJunctions(
+
+        junctions.map((junction) => {
+
+            if (junction.id === id) {
+
+                let vehicles = junction.vehicles + 20;
+
+                let traffic = "Low";
+
+                if (vehicles >= 60)
+                    traffic = "High";
+                else if (vehicles >= 30)
+                    traffic = "Medium";
+
+                return {
+                    ...junction,
+                    vehicles,
+                    traffic
                 };
             }
 
@@ -212,13 +244,13 @@ function changeTraffic(id) {
 
                         <p><strong>ID:</strong> {junction.id}</p>
 
-                        <p><strong>Status:</strong> {junction.status}</p>
-                        <p>
-    <strong>Signal:</strong> {junction.signal}
-    <p>
-    <strong>Traffic:</strong> {junction.traffic}
-</p>
-</p>
+<p><strong>Status:</strong> {junction.status}</p>
+
+<p><strong>Signal:</strong> {junction.signal}</p>
+
+<p><strong>Vehicles:</strong> {junction.vehicles}</p>
+
+<p><strong>Traffic:</strong> {junction.traffic}</p>
 <button
     className="signal-btn"
     onClick={() => changeSignal(junction.id)}
