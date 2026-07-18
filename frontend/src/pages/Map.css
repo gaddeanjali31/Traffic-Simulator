@@ -85,3 +85,44 @@ hr{
 .traffic-btn:hover{
     background:#059669;
 }
+.emergency-buttons{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+    flex-wrap:wrap;
+}
+
+.ambulance-btn,
+.fire-btn,
+.police-btn{
+    border:none;
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.ambulance-btn{
+    background:#dc3545;
+}
+
+.fire-btn{
+    background:#fd7e14;
+}
+
+.police-btn{
+    background:#0d6efd;
+}
+
+.ambulance-btn:hover{
+    background:#bb2d3b;
+}
+
+.fire-btn:hover{
+    background:#e56b00;
+}
+
+.police-btn:hover{
+    background:#0b5ed7;
+}

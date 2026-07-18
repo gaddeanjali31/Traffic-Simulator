@@ -24,7 +24,8 @@ function Map() {
     status: "Active",
     signal: "Red",
     vehicles: 0,
-    traffic: "Low"
+    traffic: "Low",
+emergency: "None"
 };
 
         setJunctions([...junctions, newJunction]);
@@ -88,6 +89,29 @@ function addTraffic(id) {
                     vehicles,
                     traffic
                 };
+            }
+
+            return junction;
+
+        })
+
+    );
+
+}
+function dispatchEmergency(id, type) {
+
+    setJunctions(
+
+        junctions.map((junction) => {
+
+            if (junction.id === id) {
+
+                return {
+                    ...junction,
+                    emergency: type,
+                    signal: "🟢 Green"
+                };
+
             }
 
             return junction;
@@ -251,6 +275,9 @@ function changeTraffic(id) {
 <p><strong>Vehicles:</strong> {junction.vehicles}</p>
 
 <p><strong>Traffic:</strong> {junction.traffic}</p>
+<p>
+    <strong>Emergency:</strong> {junction.emergency}
+</p>
 <button
     className="signal-btn"
     onClick={() => changeSignal(junction.id)}
@@ -263,6 +290,30 @@ function changeTraffic(id) {
 >
     🚗 Change Traffic
 </button>
+<div className="emergency-buttons">
+
+<button
+className="ambulance-btn"
+onClick={() => dispatchEmergency(junction.id,"🚑 Ambulance")}
+>
+🚑 Ambulance
+</button>
+
+<button
+className="fire-btn"
+onClick={() => dispatchEmergency(junction.id,"🚒 Fire Truck")}
+>
+🚒 Fire
+</button>
+
+<button
+className="police-btn"
+onClick={() => dispatchEmergency(junction.id,"🚓 Police")}
+>
+🚓 Police
+</button>
+
+</div>
 
                         <button
                             className="delete-btn"
