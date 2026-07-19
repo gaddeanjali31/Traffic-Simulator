@@ -10,6 +10,9 @@ function Map() {
     const [to, setTo] = useState("");
     const [distance, setDistance] = useState("");
     const [roads, setRoads] = useState([]);
+    const [start, setStart] = useState("");
+const [destination, setDestination] = useState("");
+const [routeResult, setRouteResult] = useState(null);
 
     function addJunction() {
 
@@ -120,6 +123,36 @@ function dispatchEmergency(id, type) {
 
     );
 
+}
+function findRoute() {
+
+    if (start === "" || destination === "") {
+        alert("Please select both junctions.");
+        return;
+    }
+
+    if (start === destination) {
+        alert("Start and Destination cannot be the same.");
+        return;
+    }
+
+    const road = roads.find(
+        (r) =>
+            (r.from === start && r.to === destination) ||
+            (r.from === destination && r.to === start)
+    );
+
+    if (road) {
+        setRouteResult({
+            route: `${start} ➜ ${destination}`,
+            distance: road.distance
+        });
+    } else {
+        setRouteResult({
+            route: "No Direct Road Found",
+            distance: "-"
+        });
+    }
 }
 function changeTraffic(id) {
 
@@ -331,6 +364,59 @@ onClick={() => dispatchEmergency(junction.id,"🚓 Police")}
             <hr />
 
             <h2>Road Network</h2>
+            <hr />
+
+<h2>🛣 Shortest Route Finder</h2>
+
+<select
+    value={start}
+    onChange={(e) => setStart(e.target.value)}
+>
+    <option value="">Start Junction</option>
+
+    {junctions.map((j) => (
+        <option key={j.id} value={j.name}>
+            {j.name}
+        </option>
+    ))}
+</select>
+
+<select
+    value={destination}
+    onChange={(e) => setDestination(e.target.value)}
+>
+    <option value="">Destination Junction</option>
+
+    {junctions.map((j) => (
+        <option key={j.id} value={j.name}>
+            {j.name}
+        </option>
+    ))}
+</select>
+
+<button
+    className="route-btn"
+    onClick={findRoute}
+>
+    Find Route
+</button>
+{routeResult && (
+
+<div className="route-card">
+
+<h3>Shortest Route</h3>
+
+<p>
+<strong>Route:</strong> {routeResult.route}
+</p>
+
+<p>
+<strong>Distance:</strong> {routeResult.distance} km
+</p>
+
+</div>
+
+)}
 
             {roads.length === 0 ? (
 

@@ -126,3 +126,24 @@ hr{
 .police-btn:hover{
     background:#0b5ed7;
 }
+.route-btn{
+    background:#198754;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+.route-btn:hover{
+    background:#157347;
+}
+
+.route-card{
+    margin-top:20px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
