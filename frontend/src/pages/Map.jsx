@@ -126,34 +126,109 @@ function dispatchEmergency(id, type) {
 }
 function findRoute() {
 
-    if (start === "" || destination === "") {
-        alert("Please select both junctions.");
+    if (!start || !destination) {
+        alert("Select both junctions.");
         return;
     }
 
-    if (start === destination) {
-        alert("Start and Destination cannot be the same.");
-        return;
-    }
+    const graph = {};
 
-    const road = roads.find(
-        (r) =>
-            (r.from === start && r.to === destination) ||
-            (r.from === destination && r.to === start)
-    );
+    junctions.forEach((j) => {
+        graph[j.name] = [];
+    });
 
-    if (road) {
-        setRouteResult({
-            route: `${start} ➜ ${destination}`,
-            distance: road.distance
+    roads.forEach((road) => {
+
+        graph[road.from].push({
+            node: road.to,
+            weight: Number(road.distance)
         });
-    } else {
+
+        graph[road.to].push({
+            node: road.from,
+            weight: Number(road.distance)
+        });
+
+    });
+
+    const distances = {};
+    const previous = {};
+    const visited = {};
+
+    junctions.forEach((j) => {
+        distances[j.name] = Infinity;
+        previous[j.name] = null;
+    });
+
+    distances[start] = 0;
+
+    while (true) {
+
+        let current = null;
+
+        for (let node in distances) {
+
+            if (!visited[node]) {
+
+                if (current === null || distances[node] < distances[current]) {
+                    current = node;
+                }
+
+            }
+
+        }
+
+        if (current === null)
+            break;
+
+        visited[current] = true;
+
+        graph[current].forEach((neighbor) => {
+
+            const newDistance =
+                distances[current] + neighbor.weight;
+
+            if (newDistance < distances[neighbor.node]) {
+
+                distances[neighbor.node] = newDistance;
+                previous[neighbor.node] = current;
+
+            }
+
+        });
+
+    }
+
+    if (distances[destination] === Infinity) {
+
         setRouteResult({
-            route: "No Direct Road Found",
+            route: "No Route Found",
             distance: "-"
         });
+
+        return;
     }
+
+    const path = [];
+
+    let current = destination;
+
+    while (current) {
+
+        path.unshift(current);
+        current = previous[current];
+
+    }
+
+    setRouteResult({
+
+        route: path.join(" ➜ "),
+        distance: distances[destination]
+
+    });
+
 }
+
 function changeTraffic(id) {
 
     setJunctions(
